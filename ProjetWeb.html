@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>MINI PROJET</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrit ="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <script>
+            var xhr=new XMLHttpRequest();
+            function charger()
+            {
+                xhr.open("GET","https://appessat707.000webhostapp.com/pfes.php",true);
+                xhr.send();
+                xhr.onreadystatechange=function () 
+                {
+                    if(xhr.readyState==4 && xhr.status==200)
+                    {
+                        Remplir(xhr.responseXML);
+                    }
+                }
+            }
+            function charger_PFE(elements)
+            {
+                xhr.open("GET","https://appessat707.000webhostapp.com/pfes.php\n",true);
+                xhr.send();
+                xhr.onreadystatechange=function () 
+                {
+                    if(xhr.readyState==4 && xhr.status==200)
+                    {
+                        Remplir(xhr.responseXML);
+                    }
+                }
+                reset_Elements();
+                console.log(elements.innerHTML);
+                elements.classList.add('active');
+            }
+            function charger_RESEAUX(elements)
+            {
+                xhr.open("GET","https://appessat707.000webhostapp.com/pfespartypes.php?type=reseaux",true);
+                xhr.send();
+                xhr.onreadystatechange=function () 
+                {
+                    if(xhr.readyState==4 && xhr.status==200)
+                    {
+                        Remplir(xhr.responseXML);
+                    }
+                }
+                reset_Elements();
+                console.log(elements.innerHTML);
+                elements.classList.add('active');
+            }
+            function charger_EMBARQUE(elements)
+            {
+                xhr.open("GET","https://appessat707.000webhostapp.com/pfespartypes.php?type=Embarques et IoT",true);
+                xhr.send();
+                xhr.onreadystatechange=function () 
+                {
+                    if(xhr.readyState==4 && xhr.status==200)
+                    {
+                        Remplir(xhr.responseXML);
+                    }
+                }
+                reset_Elements();
+                console.log(elements.innerHTML);
+                elements.classList.add('active');
+            }
+            function charger_TELECOM(elements)
+            {
+                xhr.open("GET","https://appessat707.000webhostapp.com/pfespartypes.php?type=Telecom\n",true);
+                xhr.send();
+                xhr.onreadystatechange=function () 
+                {
+                    if(xhr.readyState==4 && xhr.status==200)
+                    {
+                        Remplir(xhr.responseXML);
+                    }
+                }
+                reset_Elements();
+                console.log(elements.innerHTML);
+                elements.classList.add('active');
+            }
+            function charger_DEV(elements)
+            {
+                xhr.open("GET","https://appessat707.000webhostapp.com/pfespartypes.php?type=Developpement",true);
+                xhr.send();
+                xhr.onreadystatechange=function () 
+                {
+                    if(xhr.readyState==4 && xhr.status==200)
+                    {
+                        Remplir(xhr.responseXML);
+                    }
+                }
+                reset_Elements();
+                console.log(elements.innerHTML);
+                elements.classList.add('active');
+            }
+            function reset_Elements() 
+            {
+                var elements = document.getElementsByClassName("active");
+                for (var i = 0; i < elements.length; i++) 
+                {
+                    elements[i].classList.remove('active')
+                }
+            }
+            function Remplir(x)
+            {
+                var table=document.getElementById("tbody");
+                var elements=x.getElementsByTagName("pfe");
+                table.innerHTML="";
+                for(var i=0;i<elements.length;i++)
+                {
+                    var ligne=document.createElement("tr");
+                    var col1=document.createElement("td");
+                    var cont1=document.createTextNode(elements[i].getAttribute("id"));
+                    col1.appendChild(cont1);
+                    ligne.appendChild(col1);
+                    var col2=document.createElement("td");
+                    var cont2=document.createTextNode(elements[i].getAttribute("titre"));
+                    col2.appendChild(cont2);
+                    ligne.appendChild(col2);
+                    var col3=document.createElement("td");
+                    var cont3=document.createTextNode(elements[i].getAttribute("type"));
+                    col3.appendChild(cont3);
+                    ligne.appendChild(col3);
+                    table.appendChild(ligne);
+                }
+            }
+        </script>
+    </head>
+    <body onload="charger()">
+    	<div class="container">
+    	    <div class="row">
+    	        <div class="col">
+    	            <div class="card">
+    	                <div class="card-header bg-primary text-white">
+    	                    <h1>Catalogue des PFEs (ESSAT)</h1>
+    	                </div>
+    	            </div>
+    	        </div>
+    	    </div>
+    	    <div class="row">
+    	        <div class="col-3">
+    	            <div class="list-group">
+    	                <li class="list-group-item list-group-item-action active" onclick="charger_PFE(this)"><i class="fas fa-th-large"></i> Tous les PFEs <span
+    	                class="badge badge-pill badge-warning"> 13 </span></li>
+    	                <li class="list-group-item list-group-item-action" onclick="charger_TELECOM(this)"><i class="fas fa-th-large"></i> PFEs Telecom <span
+    	                class="badge badge-pill badge-primary"> 3 </span></li>
+    	                <li class="list-group-item list-group-item-action" onclick="charger_DEV(this)"><i class="fas fa-th-large"></i> PFEs Developpement <span
+    	                class="badge badge-pill badge-primary"> 4 </span></li>
+    	                <li class="list-group-item list-group-item-action" onclick="charger_RESEAUX(this)"><i class="fas fa-th-large"></i> PFEs Reseaux <span
+    	                class="badge badge-pill badge-primary"> 3 </span></li>
+    	                <li class="list-group-item list-group-item-action" onclick="charger_EMBARQUE(this)"><i class="fas fa-th-large"></i> PFEs Embarques et IoT<span
+    	                class="badge badge-pill badge-primary"> 3 </span></li>
+    	            </div>
+    	        </div>
+    	        <div class="col-9">
+    	        	<div class="card">
+    	                <div class="card-header bg-success text-white">
+    	                    Liste des PFEs
+    	                </div>
+    		            <table class="table table-hover table-border" id="table">
+    		                <thead class="thead-light">
+    		                	<tr>
+    		                    	<th>ID</th>
+    		                    	<th>Titre</th>
+    		                    	<th>Type</th>
+    		                	</tr>
+    		                </thead>
+    		                <tbody id="tbody">
+
+    		                </tbody>
+    		            </table>
+    	        	</div>
+    	    	</div>
+    	   </div>
+        </div>
+    </body>
+</html>
